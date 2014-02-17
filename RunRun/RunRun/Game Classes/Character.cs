@@ -4,7 +4,10 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
+<<<<<<< HEAD
 using Microsoft.Xna.Framework.Media;
+=======
+>>>>>>> 1e5995f41b29c1f9c72aad7f7c1df53c04cfb3f8
 
 namespace RunRun.Game_Classes {
 	public class Character {
@@ -25,7 +28,10 @@ namespace RunRun.Game_Classes {
 		private Vector2 position, speed, size;
 		private float distance;
 		private Rectangle bound, colliBound, drawBound;
+<<<<<<< HEAD
         private bool songstart = false;
+=======
+>>>>>>> 1e5995f41b29c1f9c72aad7f7c1df53c04cfb3f8
 		public int state;
 		public int health;
 		public int points;
@@ -146,6 +152,7 @@ namespace RunRun.Game_Classes {
 			for(i = 0; i < n;i++ ) {
 				rect = obstacles.getObstacle(i).getDeathBound();
 				if(bound.Intersects(rect)) {
+<<<<<<< HEAD
                     if (!songstart)
                     {
                         MediaPlayer.Play(Assets.ScreamBGM);
@@ -158,6 +165,11 @@ namespace RunRun.Game_Classes {
 					position.Y = Platform.DEFAULT_SKY_Y + Platform.SIZE_TYPE_1.Y;
                     songstart = false;
                     MediaPlayer.Stop();
+=======
+					health--;
+					position.X = Character.DEFAULT_POS_X;
+					position.Y = Platform.DEFAULT_SKY_Y + Platform.SIZE_TYPE_1.Y;
+>>>>>>> 1e5995f41b29c1f9c72aad7f7c1df53c04cfb3f8
 				}
 				i++;
 			}

@@ -6,7 +6,10 @@ using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input.Touch;
+<<<<<<< HEAD
 using Microsoft.Xna.Framework.Media;
+=======
+>>>>>>> 1e5995f41b29c1f9c72aad7f7c1df53c04cfb3f8
 
 namespace RunRun.Game_Classes {
 	public class GameHandler {
@@ -27,8 +30,11 @@ namespace RunRun.Game_Classes {
 		private Animation hero, flipHero, motionEffect;
 		private Random random;
 		private int DELAY_MIN_PRO, DELAY_MAX_PRO;
+<<<<<<< HEAD
         private bool songstart = false;
         private Song bgmplay;
+=======
+>>>>>>> 1e5995f41b29c1f9c72aad7f7c1df53c04cfb3f8
 		public int state;
 		public static readonly int STATE_ALIVE = 0;
 		public static readonly int STATE_DEAD = 1;
@@ -247,7 +253,10 @@ namespace RunRun.Game_Classes {
 		public void drawRunning(SpriteBatch spriteBatch, GameTime gameTime) {
 			if(!freeze)
 				runTime += gameTime.ElapsedGameTime.Milliseconds;
+<<<<<<< HEAD
 
+=======
+>>>>>>> 1e5995f41b29c1f9c72aad7f7c1df53c04cfb3f8
 			spriteBatch.Draw(Assets.sky1, sky.getPos(), Color.White);
 			spriteBatch.Draw(Assets.sky2, sky2.getPos(), Color.White);
 			spriteBatch.Draw(Assets.background1, bg1.getPos(), Color.White);
