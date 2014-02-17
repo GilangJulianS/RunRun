@@ -36,12 +36,9 @@ namespace RunRun{
 		Texture2D EndFG;
 		Texture2D QuitBG;
 		Texture2D TutorialBG;
-<<<<<<< HEAD
         Texture2D QuitAsk;
 
         private bool songstart = false;
-=======
->>>>>>> 1e5995f41b29c1f9c72aad7f7c1df53c04cfb3f8
 
 		MenuButton ExitButton = new MenuButton();
 		MenuButton PlayButton = new MenuButton();
@@ -82,15 +79,9 @@ namespace RunRun{
 			TouchPanel.EnabledGestures = GestureType.Tap | GestureType.HorizontalDrag | GestureType.VerticalDrag | GestureType.DragComplete;
 			
 			//menu
-<<<<<<< HEAD
 			PlayButton.pos = new Vector2(780, 40);
 			TutorialButton.pos = new Vector2(780, 170);
 			ExitButton.pos = new Vector2(790, 300);
-=======
-			PlayButton.pos = new Vector2(900, 100);
-			TutorialButton.pos = new Vector2(900, 220);
-			ExitButton.pos = new Vector2(900, 340);
->>>>>>> 1e5995f41b29c1f9c72aad7f7c1df53c04cfb3f8
 			YesButton.pos = new Vector2(-100, 380);
 			NoButton.pos = new Vector2(800, 380);
 			BackButton.pos = new Vector2(-100, 30);
@@ -143,15 +134,11 @@ namespace RunRun{
 			Assets.spike2 = Content.Load<Texture2D>("Bitmap/spike2");
 			Assets.gameOver = Content.Load<Texture2D>("Bitmap/GameOver");
 			Game1.font1 = Content.Load<SpriteFont>("Font/font1");
-<<<<<<< HEAD
 
             MediaPlayer.IsRepeating = true;
             Assets.PlayBGM = Content.Load<Song>("BGM/PlayBGM");
             Assets.ScreamBGM = Content.Load<Song>("BGM/scream");
 
-=======
-			
->>>>>>> 1e5995f41b29c1f9c72aad7f7c1df53c04cfb3f8
 			// menu content 
 			spriteBatchMenu = new SpriteBatch(GraphicsDevice);
 
@@ -159,10 +146,7 @@ namespace RunRun{
 			EndFG = Content.Load<Texture2D>("Button/endgamefg");
 			QuitBG = Content.Load<Texture2D>("Button/quitgamebg");
 			TutorialBG = Content.Load<Texture2D>("Button/tutorialbg");
-<<<<<<< HEAD
             QuitAsk = Content.Load<Texture2D>("Button/quitgame");
-=======
->>>>>>> 1e5995f41b29c1f9c72aad7f7c1df53c04cfb3f8
 
 			ExitButton.texture = Content.Load<Texture2D>("Button/exitbutton");
 			PlayButton.texture = Content.Load<Texture2D>("Button/playbutton");
@@ -275,11 +259,7 @@ namespace RunRun{
 
 					if (gameState.game_level_state == GameStateNumbers.GAME_STATE_PAUSE)
 					{
-<<<<<<< HEAD
 						spriteBatchMenu.Draw(EndFG, new Vector2(215,270), Color.White);
-=======
-						spriteBatchMenu.Draw(EndFG, new Vector2(0, 0), Color.White);
->>>>>>> 1e5995f41b29c1f9c72aad7f7c1df53c04cfb3f8
 
 						#region Buttons
 
@@ -301,10 +281,7 @@ namespace RunRun{
 					#region Draw Quit Screen
 
 					spriteBatchMenu.Draw(QuitBG, new Vector2(0, 0), Color.White);
-<<<<<<< HEAD
                     spriteBatchMenu.Draw(QuitAsk, new Vector2(215, 270), Color.White);
-=======
->>>>>>> 1e5995f41b29c1f9c72aad7f7c1df53c04cfb3f8
 
 					#region Buttons
 
@@ -354,15 +331,9 @@ namespace RunRun{
 
 					if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
 					{
-<<<<<<< HEAD
 						PlayButton.pos = new Vector2(780, 40);
 						TutorialButton.pos = new Vector2(780, 170);
 						ExitButton.pos = new Vector2(790, 300);
-=======
-						PlayButton.pos = new Vector2(900, 100);
-						TutorialButton.pos = new Vector2(900, 220);
-						ExitButton.pos = new Vector2(900, 340);
->>>>>>> 1e5995f41b29c1f9c72aad7f7c1df53c04cfb3f8
 
 						gameState.top_level_state = GameStateNumbers.STATE_EXIT;
 					}
@@ -371,45 +342,27 @@ namespace RunRun{
 
 					#region Smooth Button Transition into Frame
 
-<<<<<<< HEAD
 					if (PlayButton.pos.X > 420)
 					{
 						float dist = PlayButton.pos.X - 500;
-=======
-					if (PlayButton.pos.X > 620)
-					{
-						float dist = PlayButton.pos.X - 620;
->>>>>>> 1e5995f41b29c1f9c72aad7f7c1df53c04cfb3f8
 						PlayButton.pos.X -= (dist / 4);
 					}
 					if (PlayButton.pos.X <= 640)
 						PlayButton.available = true;
 
 
-<<<<<<< HEAD
 					if (TutorialButton.pos.X > 420)
 					{
 						float dist = TutorialButton.pos.X - 500;
-=======
-					if (TutorialButton.pos.X > 620)
-					{
-						float dist = TutorialButton.pos.X - 620;
->>>>>>> 1e5995f41b29c1f9c72aad7f7c1df53c04cfb3f8
 						TutorialButton.pos.X -= (dist / 6);
 					}
 					if (PlayButton.pos.X <= 640)
 						TutorialButton.available = true;
 
 
-<<<<<<< HEAD
 					if (ExitButton.pos.X > 420)
 					{
 						float dist = ExitButton.pos.X - 510;
-=======
-					if (ExitButton.pos.X > 620)
-					{
-						float dist = ExitButton.pos.X - 620;
->>>>>>> 1e5995f41b29c1f9c72aad7f7c1df53c04cfb3f8
 						ExitButton.pos.X -= (dist / 8);
 					}
 					if (ExitButton.pos.X <= 640)
@@ -425,15 +378,9 @@ namespace RunRun{
 						gameState.menu_level_state = 0;
 						gameState.game_level_state = 0;
 
-<<<<<<< HEAD
 						PlayButton.pos = new Vector2(780, 40);
 						TutorialButton.pos = new Vector2(780, 170);
 						ExitButton.pos = new Vector2(790, 300);
-=======
-						PlayButton.pos = new Vector2(900, 100);
-						TutorialButton.pos = new Vector2(900, 220);
-						ExitButton.pos = new Vector2(900, 340);
->>>>>>> 1e5995f41b29c1f9c72aad7f7c1df53c04cfb3f8
 
 						gameState.top_level_state = GameStateNumbers.STATE_PLAY;
 						world.newLevel();
@@ -444,15 +391,9 @@ namespace RunRun{
 						gameState.exit_level_state = 0;
 						gameState.game_level_state = 0;
 
-<<<<<<< HEAD
 						PlayButton.pos = new Vector2(780, 40);
 						TutorialButton.pos = new Vector2(780, 170);
 						ExitButton.pos = new Vector2(790, 300);
-=======
-						PlayButton.pos = new Vector2(900, 100);
-						TutorialButton.pos = new Vector2(900, 220);
-						ExitButton.pos = new Vector2(900, 340);
->>>>>>> 1e5995f41b29c1f9c72aad7f7c1df53c04cfb3f8
 
 						gameState.menu_level_state = GameStateNumbers.MENU_STATE_TUTORIAL;
 					}
@@ -463,15 +404,9 @@ namespace RunRun{
 						gameState.menu_level_state = 0;
 						gameState.game_level_state = 0;
 
-<<<<<<< HEAD
 						PlayButton.pos = new Vector2(780, 40);
 						TutorialButton.pos = new Vector2(780, 170);
 						ExitButton.pos = new Vector2(790, 300);
-=======
-						PlayButton.pos = new Vector2(900, 100);
-						TutorialButton.pos = new Vector2(900, 220);
-						ExitButton.pos = new Vector2(900, 340);
->>>>>>> 1e5995f41b29c1f9c72aad7f7c1df53c04cfb3f8
 
 						gameState.top_level_state = GameStateNumbers.STATE_EXIT;
 					}
@@ -534,7 +469,6 @@ namespace RunRun{
 					gameState.top_level_state = GameStateNumbers.MENU_STATE_ROOT;
 
 					// TODO: Add your update logic here
-<<<<<<< HEAD
                     if (!songstart)
                     {
                         MediaPlayer.Play(Assets.PlayBGM);
@@ -543,12 +477,6 @@ namespace RunRun{
 					world.update(gameTime);
                     base.Update(gameTime);
 
-=======
-
-					world.update(gameTime);
-
-					base.Update(gameTime);
->>>>>>> 1e5995f41b29c1f9c72aad7f7c1df53c04cfb3f8
 					break;
 
 				case GameStateNumbers.GAME_STATE_PAUSE:
@@ -575,11 +503,7 @@ namespace RunRun{
 						float dist = YesButton.pos.X - 80;
 						YesButton.pos.X -= (dist / 5);
 					}
-<<<<<<< HEAD
 					if (YesButton.pos.X >= 40)
-=======
-					if (YesButton.pos.X >= 60)
->>>>>>> 1e5995f41b29c1f9c72aad7f7c1df53c04cfb3f8
 						YesButton.available = true;
 
 
@@ -602,11 +526,8 @@ namespace RunRun{
 
 						gameState.top_level_state = GameStateNumbers.STATE_MENU;
 						gameState.game_level_state = GameStateNumbers.GAME_STATE_PLAY;
-<<<<<<< HEAD
                         MediaPlayer.Stop();
                         songstart = false;
-=======
->>>>>>> 1e5995f41b29c1f9c72aad7f7c1df53c04cfb3f8
 					}
 					else if (NoButton.update(touchLoc))
 					{

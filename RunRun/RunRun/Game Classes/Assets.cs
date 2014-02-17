@@ -3,10 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework.Graphics;
-<<<<<<< HEAD
 using Microsoft.Xna.Framework.Media;
-=======
->>>>>>> 1e5995f41b29c1f9c72aad7f7c1df53c04cfb3f8
 
 namespace RunRun{
 	public class Assets{
@@ -45,10 +42,7 @@ namespace RunRun{
 		public static Texture2D gameOver;
 		public static Texture2D spike1;
 		public static Texture2D spike2;
-<<<<<<< HEAD
         public static Song PlayBGM;
         public static Song ScreamBGM;
-=======
->>>>>>> 1e5995f41b29c1f9c72aad7f7c1df53c04cfb3f8
 	}
 }
