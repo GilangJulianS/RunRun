@@ -93,6 +93,7 @@ namespace RunRun{
                armorLevel = 1;
                bootLevel = 1;
             }
+			//
             for (int i = 1; i <= gloveLevel;i++ )
             {
                 gloveprice += 20 * gloveLevel;
