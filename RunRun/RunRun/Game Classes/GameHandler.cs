@@ -20,6 +20,7 @@ namespace RunRun.Game_Classes {
 		//private Pointers pointers;
 		private Projectiles projectiles;
 		private Coins coins;
+        private bool scoreUpdated;
 		private Background bg1, bg2, sky, sky2;
 		private int delayProjectiles, delayCoins, delayObstacles;
 		private bool freeze;
@@ -35,6 +36,7 @@ namespace RunRun.Game_Classes {
 		
 
 		public GameHandler() {
+            scoreUpdated = true;
 			character = new Character(0);
 			platforms = new Platforms();
 			obstacles = new Obstacles();
@@ -64,6 +66,7 @@ namespace RunRun.Game_Classes {
 		}
 
 		public void newLevel() {
+            scoreUpdated = true;
 			Game1.gameSpeed = 1;
 			character = new Character(0);
 			platforms = new Platforms();
@@ -103,6 +106,11 @@ namespace RunRun.Game_Classes {
 				
 			else if(state == GameHandler.STATE_DEAD) {
 				updateGameOver(gameTime);
+                if(scoreUpdated){
+                    scoreUpdated = false;
+                    Game1.money += character.points;
+                }
+                Debug.WriteLine(character.points);
 				Game1.gameSpeed = 0;
 			}
 		}

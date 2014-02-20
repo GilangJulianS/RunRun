@@ -11,13 +11,16 @@ using Microsoft.Xna.Framework.Input.Touch;
 using Microsoft.Xna.Framework.Media;
 using RunRun.Game_Classes;
 using System.Diagnostics;
+using System.IO.IsolatedStorage;
+using System.IO;
 
 namespace RunRun{
 	/// <summary>
 	/// This is the main type for your game
 	/// </summary>
 	public class Game1 : Microsoft.Xna.Framework.Game{
-
+        public static int money;
+        public static int gloveprice,armorprice,bootprice;
 		public static float gameSpeed = 1;
 		public static Vector2 screenSize;
 		public GraphicsDeviceManager graphics;
@@ -39,15 +42,69 @@ namespace RunRun{
         Texture2D QuitAsk;
 
         private bool songstart = false;
-
+        int gloveLevel, bootLevel, armorLevel;
 		MenuButton ExitButton = new MenuButton();
 		MenuButton PlayButton = new MenuButton();
 		MenuButton TutorialButton = new MenuButton();
 		MenuButton YesButton = new MenuButton();
 		MenuButton NoButton = new MenuButton();
 		MenuButton BackButton = new MenuButton();
-
+        MenuButton SaveButton = new MenuButton();
+        MenuButton LoadButton = new MenuButton();
+        MenuButton GloveButton = new MenuButton();
+        MenuButton ArmorButton = new MenuButton();
+        MenuButton BootButton = new MenuButton();
+        Vector2 pos;
+        int n = 0;
 		public Game1(){
+            pos = new Vector2();
+            gloveprice = 30;
+            armorprice = 30;
+            bootprice = 30;
+            IsolatedStorageFile isf = IsolatedStorageFile.GetUserStoreForApplication();
+            StreamReader sr = null;
+            try
+            {
+                String s;
+                sr = new StreamReader(new IsolatedStorageFileStream("Data\\money.sav", FileMode.Open, isf));
+                s = sr.ReadLine();
+                money = Convert.ToInt32(s);
+                sr.Close();
+            }
+            catch
+            {
+                money = 0;
+            }
+            try
+            {
+                String s;
+                sr = new StreamReader(new IsolatedStorageFileStream("Data\\upgrade.sav", FileMode.Open, isf));
+                s = sr.ReadLine();
+                gloveLevel = Convert.ToInt32(s);
+                s = sr.ReadLine();
+                armorLevel = Convert.ToInt32(s);
+                s = sr.ReadLine();
+                bootLevel = Convert.ToInt32(s);
+                sr.Close();
+            }
+            catch
+            {
+               gloveLevel = 1;
+               armorLevel = 1;
+               bootLevel = 1;
+            }
+            for (int i = 1; i <= gloveLevel;i++ )
+            {
+                gloveprice += 20 * gloveLevel;
+            }
+            for (int i = 1; i <= armorLevel; i++)
+            {
+                armorprice += 20 * armorLevel;
+            }
+            for (int i = 1; i <= bootLevel; i++)
+            {
+                bootprice += 20 * bootLevel;
+            }
 			graphics = new GraphicsDeviceManager(this){
 				PreferredBackBufferHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width, 
 				PreferredBackBufferWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height,
@@ -85,7 +142,11 @@ namespace RunRun{
 			YesButton.pos = new Vector2(-100, 380);
 			NoButton.pos = new Vector2(800, 380);
 			BackButton.pos = new Vector2(-100, 30);
-
+            SaveButton.pos = new Vector2(500,80);
+            LoadButton.pos = new Vector2(500, 200);
+            GloveButton.pos = new Vector2(100,100);
+            ArmorButton.pos = new Vector2(100,200);
+            BootButton.pos = new Vector2(100,300);
 			base.Initialize();
 		}
 
@@ -133,6 +194,8 @@ namespace RunRun{
 			Assets.spike1 = Content.Load<Texture2D>("Bitmap/spike1");
 			Assets.spike2 = Content.Load<Texture2D>("Bitmap/spike2");
 			Assets.gameOver = Content.Load<Texture2D>("Bitmap/GameOver");
+            Assets.terang = Content.Load<Texture2D>("Bitmap/terang");
+            Assets.gelap = Content.Load<Texture2D>("Bitmap/gelap");
 			Game1.font1 = Content.Load<SpriteFont>("Font/font1");
 
             MediaPlayer.IsRepeating = true;
@@ -145,7 +208,7 @@ namespace RunRun{
 			MenuBG = Content.Load<Texture2D>("Button/bg");
 			EndFG = Content.Load<Texture2D>("Button/endgamefg");
 			QuitBG = Content.Load<Texture2D>("Button/quitgamebg");
-			TutorialBG = Content.Load<Texture2D>("Button/tutorialbg");
+			TutorialBG = Content.Load<Texture2D>("Bitmap/shop");
             QuitAsk = Content.Load<Texture2D>("Button/quitgame");
 
 			ExitButton.texture = Content.Load<Texture2D>("Button/exitbutton");
@@ -156,6 +219,12 @@ namespace RunRun{
 			NoButton.texture = Content.Load<Texture2D>("Button/nobutton");
 
 			BackButton.texture = Content.Load<Texture2D>("Button/backbutton");
+            SaveButton.texture = Content.Load<Texture2D>("Button/yesbutton");
+            LoadButton.texture = Content.Load<Texture2D>("Button/nobutton");
+            GloveButton.texture = Content.Load<Texture2D>("Button/backbutton");
+            ArmorButton.texture = Content.Load<Texture2D>("Button/yesbutton");
+            BootButton.texture = Content.Load<Texture2D>("Button/nobutton");
+            Assets.gloveButton = Content.Load<Texture2D>("Button/shopil");
 			
 			world.initializeAnimation();
 		}
@@ -239,7 +308,47 @@ namespace RunRun{
 							#region Buttons
 
 							spriteBatchMenu.Draw(BackButton.texture, BackButton.pos, Color.White);
-
+                            spriteBatchMenu.Draw(Assets.gloveButton, GloveButton.pos, Color.White);
+                            spriteBatchMenu.Draw(Assets.gloveButton, ArmorButton.pos, Color.White);
+                            spriteBatchMenu.Draw(Assets.gloveButton, BootButton.pos, Color.White);
+                            spriteBatchMenu.Draw(SaveButton.texture, SaveButton.pos, Color.White);
+                            spriteBatchMenu.Draw(LoadButton.texture, LoadButton.pos, Color.White);
+                            pos.X = 200;
+                            pos.Y = 130;
+                            for (int i = 1; i <= gloveLevel;i++ )
+                            {
+                                spriteBatchMenu.Draw(Assets.terang, pos, Color.White);
+                                pos.X += 50;
+                            }
+                            for (int i = 1; i <= 7 - gloveLevel;i++ )
+                            {
+                                spriteBatchMenu.Draw(Assets.gelap, pos, Color.White);
+                                pos.X += 50;
+                            }
+                            pos.X = 200;
+                            pos.Y = 230;
+                            for (int i = 1; i <= armorLevel;i++ )
+                            {
+                                spriteBatchMenu.Draw(Assets.terang, pos, Color.White);
+                                pos.X += 50;
+                            }
+                            for (int i = 1; i <= 7 - armorLevel;i++ )
+                            {
+                                spriteBatchMenu.Draw(Assets.gelap, pos, Color.White);
+                                pos.X += 50;
+                            }
+                            pos.X = 200;
+                            pos.Y = 330;
+                            for (int i = 1; i <= bootLevel;i++ )
+                            {
+                                spriteBatchMenu.Draw(Assets.terang, pos, Color.White);
+                                pos.X += 50;
+                            }
+                            for (int i = 1; i <= 7 - bootLevel;i++ )
+                            {
+                                spriteBatchMenu.Draw(Assets.gelap, pos, Color.White);
+                                pos.X += 50;
+                            }
 							#endregion
 
 							break;
@@ -426,10 +535,13 @@ namespace RunRun{
 						gameState.menu_level_state = GameStateNumbers.MENU_STATE_ROOT;
 					}
 
+
 					#endregion
 
 					#region Smooth Button Transition into Frame
-
+                    GloveButton.available = true;
+                    ArmorButton.available = true;
+                    BootButton.available = true;
 					if (BackButton.pos.X < 180)
 					{
 						float dist = BackButton.pos.X - 40;
@@ -438,6 +550,8 @@ namespace RunRun{
 					if (BackButton.pos.X >= 20)
 						BackButton.available = true;
 
+                    SaveButton.available = true;
+                    LoadButton.available = true;
 					#endregion
 
 					#region Update Buttons
@@ -445,9 +559,43 @@ namespace RunRun{
 					if (BackButton.update(touchLoc))
 					{
 						BackButton.pos = new Vector2(-100, 30);
-
 						gameState.menu_level_state = GameStateNumbers.MENU_STATE_ROOT;
 					}
+
+                    if (SaveButton.update(touchLoc))
+                    {
+                        Debug.WriteLine(Game1.money);
+                        Debug.WriteLine(gloveprice);
+                        Debug.WriteLine(armorprice);
+                        Debug.WriteLine(bootprice);
+                    }
+
+                    if (GloveButton.update(touchLoc))
+                    {
+                        if((gloveLevel<7)&&(money>=gloveprice)){
+                            money -= gloveprice;
+                            gloveLevel++;
+                            gloveprice += 20 * gloveLevel;
+                        }
+                    }
+                    if (ArmorButton.update(touchLoc))
+                    {
+                        if ((armorLevel < 7) && (money >= armorprice))
+                        {
+                            money -= armorprice;
+                            armorLevel++;
+                            armorprice += 20 * armorLevel;
+                        }
+                    }
+                    if (BootButton.update(touchLoc))
+                    {
+                        if ((bootLevel < 7) && (money >= bootprice))
+                        {
+                            money -= bootprice;
+                            bootLevel++;
+                            bootprice += 20 * bootLevel;
+                        }
+                    }
 
 					break;
 
@@ -476,7 +624,6 @@ namespace RunRun{
                     }
 					world.update(gameTime);
                     base.Update(gameTime);
-
 					break;
 
 				case GameStateNumbers.GAME_STATE_PAUSE:
@@ -523,7 +670,6 @@ namespace RunRun{
 					{
 						YesButton.pos = new Vector2(-100, 380);
 						NoButton.pos = new Vector2(800, 380);
-
 						gameState.top_level_state = GameStateNumbers.STATE_MENU;
 						gameState.game_level_state = GameStateNumbers.GAME_STATE_PLAY;
                         MediaPlayer.Stop();
@@ -546,6 +692,16 @@ namespace RunRun{
 		// Handle Application Termination
 		void ExitMain()
 		{
+            IsolatedStorageFile isf = IsolatedStorageFile.GetUserStoreForApplication();
+            isf.CreateDirectory("Data");
+            StreamWriter sw = new StreamWriter(new IsolatedStorageFileStream("Data\\money.sav", FileMode.Create, isf));
+            sw.WriteLine(money);
+            sw.Close();
+            sw = new StreamWriter(new IsolatedStorageFileStream("Data\\upgrade.sav", FileMode.Create, isf));
+            sw.WriteLine(gloveLevel);
+            sw.WriteLine(armorLevel);
+            sw.WriteLine(bootLevel);
+            sw.Close();
 			if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
 				gameState.top_level_state = GameStateNumbers.STATE_MENU;
 

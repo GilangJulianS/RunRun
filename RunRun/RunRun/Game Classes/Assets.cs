@@ -42,6 +42,11 @@ namespace RunRun{
 		public static Texture2D gameOver;
 		public static Texture2D spike1;
 		public static Texture2D spike2;
+        public static Texture2D gloveButton;
+        public static Texture2D armorButton;
+        public static Texture2D bootButton;
+        public static Texture2D terang;
+        public static Texture2D gelap;
         public static Song PlayBGM;
         public static Song ScreamBGM;
 	}
