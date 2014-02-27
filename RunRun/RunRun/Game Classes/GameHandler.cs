@@ -7,6 +7,8 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input.Touch;
 using Microsoft.Xna.Framework.Media;
+using System.IO.IsolatedStorage;
+using System.IO;
 
 namespace RunRun.Game_Classes {
 	public class GameHandler {
@@ -33,7 +35,10 @@ namespace RunRun.Game_Classes {
 		public int state;
 		public static readonly int STATE_ALIVE = 0;
 		public static readonly int STATE_DEAD = 1;
-		
+        int elapsedX, obstaclesType;
+        StreamReader srLevel;
+        String sLevel;
+        IsolatedStorageFile isf;
 
 		public GameHandler() {
             scoreUpdated = true;
@@ -63,6 +68,20 @@ namespace RunRun.Game_Classes {
 			motionEffect = new Animation(Animation.INDEPENDENT_SPEED);
 			DELAY_MIN_PRO=2000;
 			DELAY_MAX_PRO = 5000;
+            isf = IsolatedStorageFile.GetUserStoreForApplication();
+            try
+            {
+                srLevel = new StreamReader(new IsolatedStorageFileStream("Data\\level.sav", FileMode.Open, isf));
+                sLevel = srLevel.ReadLine();
+                elapsedX = Convert.ToInt32(sLevel);
+                sLevel = srLevel.ReadLine();
+                obstaclesType = Convert.ToInt32(sLevel);
+            }
+            catch
+            {
+                elapsedX = -1;
+                obstaclesType = -1;
+            }
 		}
 
 		public void newLevel() {
@@ -113,6 +132,20 @@ namespace RunRun.Game_Classes {
                 Debug.WriteLine(character.points);
 				Game1.gameSpeed = 0;
 			}
+            if(character.getDistance()>elapsedX&&(elapsedX!=-1)){
+                try
+                {
+                    sLevel = srLevel.ReadLine();
+                    elapsedX = Convert.ToInt32(sLevel);
+                    sLevel = srLevel.ReadLine();
+                    obstaclesType = Convert.ToInt32(sLevel);
+                }
+                catch
+                {
+                    elapsedX = -1;
+                    obstaclesType = -1;
+                }
+            }
 		}
 
 		public void draw(SpriteBatch spriteBatch, GameTime gameTime) {
